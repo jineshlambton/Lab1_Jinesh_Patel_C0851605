@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +29,10 @@ import org.w3c.dom.Text;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
-public class Home extends AppCompatActivity implements OnMapReadyCallback {
+public class Home extends AppCompatActivity implements OnMapReadyCallback, SeekBar.OnSeekBarChangeListener {
 
     GoogleMap map;
 
@@ -40,6 +42,8 @@ public class Home extends AppCompatActivity implements OnMapReadyCallback {
     Polygon polygon = null;
     TextView lblDistance;
 
+    SeekBar seekLineColor, seekPolyColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,12 @@ public class Home extends AppCompatActivity implements OnMapReadyCallback {
 
         lblDistance = findViewById(R.id.lblDistance);
         lblDistance.setVisibility(TextView.INVISIBLE);
+        seekLineColor = findViewById(R.id.seekLine);
+        seekPolyColor = findViewById(R.id.seekPolyLine);
         lblDistance.setTextSize(30);
+
+        seekLineColor.setOnSeekBarChangeListener(this);
+        seekPolyColor.setOnSeekBarChangeListener(this);
         loadMap();
 
     }
@@ -197,5 +206,45 @@ public class Home extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+        final int min = 0;
+        final int max = 255;
+        final int random = new Random().nextInt((max - min) + 1) + min;
+        final int random1 = new Random().nextInt((max - min) + 1) + min;
+
+        float[] hsvColor = {random, random, 0};
+        hsvColor[2] = 360f * progress / progress;
+
+        float[] hsvColor1 = {random1, 0, random1};
+        hsvColor1[1] = 360f * progress / progress;
+
+        switch (seekBar.getId()){
+            case R.id.seekLine:
+                if(polygon != null) {
+                    polygon.setStrokeColor(Color.HSVToColor(hsvColor));
+                }
+                break;
+            case R.id.seekPolyLine:
+                if (polygon != null) {
+                    polygon.setFillColor(Color.HSVToColor(hsvColor1));
+                }
+        }
+//        if(polygon != null)
+//
+//            polygon.setStrokeColor(Color.rgb(Red,Green,Blue));
+//        if(checkBox.isChecked())
+//            polygon.setFillColor(Color.rgb(Red,Green,Blue));
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }

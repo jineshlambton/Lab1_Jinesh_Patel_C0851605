@@ -23,15 +23,54 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/lblDistance"
-            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:height="30dp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/lblLineColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="Line Color">
+
+        </TextView>
+
+        <SeekBar
+            android:id="@+id/seekLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="100"
+            android:progressTint="#ff0000"
+            android:thumbTint="#ff0000" />
+
+        <TextView
+            android:id="@+id/lblPolycolor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="Polygon Color">
+
+        </TextView>
+
+        <SeekBar
+            android:id="@+id/seekPolyLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="100"
+            android:progressTint="@color/material_dynamic_tertiary50"
+            android:thumbTint="#ff0000" />
 
     </LinearLayout>
 
